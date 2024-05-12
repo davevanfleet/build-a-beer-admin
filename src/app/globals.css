@@ -105,3 +105,8 @@ a {
     color-scheme: dark;
   }
 }
+
+.signin-button {
+  width: 210px;
+  height: 40px;
+}
