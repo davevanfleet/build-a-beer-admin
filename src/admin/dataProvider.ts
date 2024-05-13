@@ -12,6 +12,6 @@ const httpClient = (url: unknown, options: fetchUtils.Options | undefined = {}) 
 };
 
 export const dataProvider = simpleRestProvider(
-  "https://localhost:7157",
+  "/api",
   httpClient
 );
