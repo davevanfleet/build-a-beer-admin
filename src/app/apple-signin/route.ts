@@ -13,7 +13,7 @@ export async function POST(request: Request) {
     console.log("authToken", authToken)
     cookies().set('auth', JSON.stringify({authToken}))
     
-    const destinationUrl = new URL("/test", new URL(request.url).origin);
+    const destinationUrl = new URL("/", new URL(request.url).origin);
     const response = NextResponse.redirect(destinationUrl, { status: 302 });
 
     return response;

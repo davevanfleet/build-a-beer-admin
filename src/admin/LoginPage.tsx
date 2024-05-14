@@ -1,8 +1,9 @@
 import Image from "next/image"
 import { Box, Typography } from '@mui/material';
+import { config } from "@/config";
 
 const CLIENT_ID = 'app.buildabeer.buildabeer.signin'
-const REDIRECT_URI = "https://local.test/apple-signin"
+const REDIRECT_URI = config.auth.appleRedirectUrl
 
 export const LoginPage = () => {
     const href = 'https://appleid.apple.com/auth/authorize?' +
