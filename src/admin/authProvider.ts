@@ -1,9 +1,20 @@
 import { AuthProvider } from 'react-admin';
 
+const fetchMe = async () => {
+    const { authToken } = getAuthCookie()
+    if (!authToken){
+        return Promise.reject()
+    }
+
+    const response = await fetch('/api/Me', {headers: {authorization: `Bearer ${authToken}`}})
+    const me = await response.json()
+    return me
+}
+
 export const getAuthCookie = (): Record<string, string> => {
-    let name = "auth=";
-    let decodedCookie = decodeURIComponent(document.cookie);
-    let ca = decodedCookie.split(';');
+    const name = "auth=";
+    const decodedCookie = decodeURIComponent(document.cookie);
+    const ca = decodedCookie.split(';');
     for(let i = 0; i <ca.length; i++) {
       let c = ca[i];
       while (c.charAt(0) == ' ') {
@@ -23,38 +34,14 @@ export const authProvider: AuthProvider = {
         return Promise.reject()
     },
     checkAuth: async () => {
-        const cookie = getAuthCookie()
-        if (cookie.authToken){
-            return
+       const me = await fetchMe()
+        if (!me) {
+            return Promise.reject()
         }
-        return Promise.reject()
-    },
-    // A user logged successfully on the Auth0 service
-    // and was redirected back to the /auth-callback route on the app
-    handleCallback: async () => {
-        // const query = window.location.search;
-        // if (query.includes('code=') && query.includes('state=')) {
-        //     try {
-        //         // get an access token based on the query paramaters
-        //         await Auth0Client.handleRedirectCallback();
-        //         return;
-        //     } catch (error) {
-        //         console.log('error', error);
-        //         throw error;
-        //     }
-        // }
-        // throw new Error('Failed to handle login callback.');
         return Promise.resolve()
     },
     logout: async () => {
-        // const isAuthenticated = await client.isAuthenticated();
-        //     // need to check for this as react-admin calls logout in case checkAuth failed
-        // if (isAuthenticated) {
-        //     return client.logout({
-        //         returnTo: window.location.origin,
-        //     });
-        // }
-        return Promise.resolve()
+        fetch('/logout', {method: 'POST'})
     },
     checkError:  (error) => {
         const status = error.status;
@@ -65,10 +52,11 @@ export const authProvider: AuthProvider = {
         // other error code (404, 500, etc): no need to log out
         return Promise.resolve();
     },
-    getIdentity: () =>
-        Promise.resolve({
+    getIdentity: async () => {
+        const me = await fetchMe()
+        return Promise.resolve({
             id: 'user',
-            fullName: 'John Doe',
-        }),
+            fullName: `${me.firstName} ${me.lastName}`,
+        })},
     getPermissions: () => Promise.resolve(''),
 };

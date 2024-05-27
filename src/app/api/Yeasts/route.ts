@@ -21,7 +21,7 @@ export async function GET(request: NextRequest) {
     const sortByParam = request.nextUrl.searchParams.get("sort")
     const [sortBy, sortOrder] = sortByParam ? JSON.parse(sortByParam) : ["id", "ASC"]
 
-    const yeasts = await prisma.yeast.findMany({orderBy: {[sortBy]: sortOrder}});
+    const yeasts = await prisma.yeast.findMany({orderBy: {[sortBy]: sortOrder.toLowerCase()}});
     const response = NextResponse.json(yeasts);
 
     const count = await prisma.yeast.count()

@@ -7,5 +7,9 @@ export const authorize = (request: NextRequest) => {
         throw new Error("No Auth Token")
     }
     const decoded = jwtDecode(authHeader)
-    console.log("decoded", decoded)
+    return decoded.sub
+}
+
+export const getAppleId = (request: NextRequest) => {
+    
 }

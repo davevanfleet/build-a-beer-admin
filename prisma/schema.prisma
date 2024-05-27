@@ -109,7 +109,7 @@ model User {
   firstName String @map("first_name")
   lastName  String @map("last_name")
   email     String
-  appleId   String @map("apple_id")
+  appleId   String @map("apple_id") @unique
 
   @@map("users")
 }
