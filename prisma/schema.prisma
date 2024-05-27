@@ -52,7 +52,7 @@ model Hop {
   forAroma      Boolean     @default(false) @map("for_aroma")
   forBittering  Boolean     @default(false) @map("for_bittering")
   forDryHopping Boolean     @default(false) @map("for_dry_hopping")
-  foFlavor      Boolean     @default(false) @map("for_flavor")
+  forFlavor     Boolean     @default(false) @map("for_flavor")
   recipeHops    RecipeHop[]
 
   @@map("hops")
