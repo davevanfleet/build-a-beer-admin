@@ -5,6 +5,7 @@ export const BeerStyleCreate = () => (
     <Create>
         <SimpleForm>
             <TextInput source="name" />
+            <TextInput source="imageUrl" />
             <TextInput source="bjcpCode" />
             <TextInput source="overallImpression" />
             <TextInput source="appearanceDescription" />

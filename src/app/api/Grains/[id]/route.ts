@@ -18,7 +18,7 @@ export async function PUT(request: NextRequest, { params }: { params: { id: numb
   }
 
 export async function GET(_request: NextRequest, { params }: { params: { id: number }}) {    
-    const grain = await prisma.grain.findFirstOrThrow({where: {id: params.id}});
+    const grain = await prisma.grain.findFirstOrThrow({where: {id: +params.id}});
     const response = NextResponse.json(grain);
 
     return response

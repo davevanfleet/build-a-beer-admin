@@ -18,7 +18,7 @@ export async function PUT(request: NextRequest, { params }: { params: { id: numb
   }
 
 export async function GET(_request: NextRequest, { params }: { params: { id: number }}) {    
-    const beerStyle = await prisma.beerStyle.findFirstOrThrow({where: {id: params.id}});
+    const beerStyle = await prisma.beerStyle.findFirstOrThrow({where: {id: +params.id}});
     const response = NextResponse.json(beerStyle);
 
     return response

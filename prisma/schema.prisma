@@ -29,6 +29,7 @@ model BeerStyle {
   fermentation           Int
   bjcpCode               String @default("") @map("bjcp_code")
   overallImpression      String @default("") @map("overall_impression")
+  imageUrl               String @default("") @map("image_url")
 
   @@map("beer_styles")
 }
