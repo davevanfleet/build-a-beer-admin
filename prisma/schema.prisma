@@ -48,13 +48,15 @@ model Grain {
 }
 
 model Hop {
-  id            Int         @id(map: "pk_hops") @default(autoincrement())
-  name          String
-  forAroma      Boolean     @default(false) @map("for_aroma")
-  forBittering  Boolean     @default(false) @map("for_bittering")
-  forDryHopping Boolean     @default(false) @map("for_dry_hopping")
-  forFlavor     Boolean     @default(false) @map("for_flavor")
-  recipeHops    RecipeHop[]
+  id                      Int         @id(map: "pk_hops") @default(autoincrement())
+  name                    String
+  forAroma                Boolean     @default(false) @map("for_aroma")
+  forBittering            Boolean     @default(false) @map("for_bittering")
+  forDryHopping           Boolean     @default(false) @map("for_dry_hopping")
+  forFlavor               Boolean     @default(false) @map("for_flavor")
+  minimumTypicalAlphaAcid Int
+  maximumTypicalAlphaAcid Int
+  recipeHops              RecipeHop[]
 
   @@map("hops")
 }
@@ -110,7 +112,7 @@ model User {
   firstName String @map("first_name")
   lastName  String @map("last_name")
   email     String
-  appleId   String @map("apple_id") @unique
+  appleId   String @unique @map("apple_id")
 
   @@map("users")
 }
