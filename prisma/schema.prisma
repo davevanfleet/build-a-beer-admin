@@ -109,9 +109,9 @@ model Tag {
 
 model User {
   id        Int    @id(map: "pk_users") @default(autoincrement())
-  firstName String @map("first_name")
-  lastName  String @map("last_name")
-  email     String
+  firstName String @default("") @map("first_name")
+  lastName  String @default("") @map("last_name")
+  email     String @default("")
   appleId   String @unique @map("apple_id")
 
   @@map("users")
