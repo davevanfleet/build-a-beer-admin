@@ -54,8 +54,8 @@ model Hop {
   forBittering            Boolean     @default(false) @map("for_bittering")
   forDryHopping           Boolean     @default(false) @map("for_dry_hopping")
   forFlavor               Boolean     @default(false) @map("for_flavor")
-  minimumTypicalAlphaAcid Int
-  maximumTypicalAlphaAcid Int
+  minimumTypicalAlphaAcid Int         @map("minimum_typical_alpha_acid")
+  maximumTypicalAlphaAcid Int         @map("maximum_typical_alpha_acid")
   recipeHops              RecipeHop[]
 
   @@map("hops")
