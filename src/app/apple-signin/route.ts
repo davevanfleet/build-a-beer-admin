@@ -10,11 +10,12 @@ export async function POST(request: Request) {
         return NextResponse.json("Hello, Post")
     }
 
-    console.log("authToken", authToken)
-    cookies().set('auth', JSON.stringify({authToken}))
+    
     
     const destinationUrl = new URL("/", new URL(request.url).origin);
     const response = NextResponse.redirect(destinationUrl, { status: 302 });
+
+    response.cookies.set('auth', JSON.stringify({authToken}))
 
     return response;
   }
