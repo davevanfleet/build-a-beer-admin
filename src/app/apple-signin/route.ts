@@ -15,7 +15,7 @@ export async function POST(request: Request) {
     const destinationUrl = new URL("/", new URL(request.url).origin);
     const response = NextResponse.redirect(destinationUrl, { status: 302 });
 
-    response.cookies.set('auth', JSON.stringify({authToken}))
+    response.cookies.set('auth', JSON.stringify({authToken}), {domain: process.env.NODE_ENV === 'production' ? 'buildabeer.app' : 'local.test'})
 
     return response;
   }
