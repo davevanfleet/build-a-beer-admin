@@ -7,7 +7,8 @@ export async function GET(request: NextRequest) {
     let appleId: string | undefined;
     try {
         appleId = authorize(request)
-    } catch {
+    } catch (error) {
+        console.error(error)
         return new Response(null, {status: 204})
     }
 
