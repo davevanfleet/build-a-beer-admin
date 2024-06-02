@@ -8,8 +8,8 @@ export const HopCreate = () => (
             <BooleanInput source="forFlavor" />
             <BooleanInput source="forAroma" />
             <BooleanInput source="forDryHopping" />
-            <NumberInput source="typicalMinimumAlphaAcid" />
-            <NumberInput source="typicalMaximumAlphaAcid" />
+            <NumberInput source="minimumTypicalAlphaAcid" />
+            <NumberInput source="maximumTypicalAlphaAcid" />
         </SimpleForm>
     </Create>
 );
