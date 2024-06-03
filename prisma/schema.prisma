@@ -33,7 +33,7 @@ model BeerStyle {
   abvMinimum             Float            @map("abv_minimum") @db.Real
   abvMaximum             Float            @map("abv_maximum") @db.Real
   fermentation           FermentationType
-  fermentation_bak       Int
+  fermentation_bak       Int?
   bjcpCode               String           @default("") @map("bjcp_code")
   overallImpression      String           @default("") @map("overall_impression")
   imageUrl               String           @default("") @map("image_url")
@@ -106,14 +106,6 @@ model Recipe {
   @@map("recipes")
 }
 
-model Tag {
-  id       Int    @id(map: "pk_tags")
-  label    String
-  category Int
-
-  @@map("tags")
-}
-
 model User {
   id        Int    @id(map: "pk_users") @default(autoincrement())
   firstName String @default("") @map("first_name")
@@ -147,7 +139,7 @@ model Yeast {
   id                 Int              @id(map: "pk_yeasts") @default(autoincrement())
   name               String
   fermentation       FermentationType
-  fermentation_bak   Int
+  fermentation_bak   Int?
   maximumTemperature Int              @default(0) @map("maximum_temperature")
   minimumTemperature Int              @default(0) @map("minimum_temperature")
   attenuation        Float            @default(0) @db.Real

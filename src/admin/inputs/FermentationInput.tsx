@@ -1,9 +1,9 @@
 import { SelectInput, SelectInputProps } from "react-admin"
 
 const FERMENTATION_OPTIONS = [
-    {id: 1, name: "Ale"},
-    {id: 2, name: "Lager"},
-    {id: 3, name: "Any"},
+    {id: 'top', name: "Ale"},
+    {id: 'bottom', name: "Lager"},
+    {id: 'any', name: "Any"},
 ]
 
 export const FermentationInput = (props: SelectInputProps) => {

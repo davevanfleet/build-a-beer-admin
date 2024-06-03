@@ -1,3 +1,4 @@
+import { FermentationInput } from '@/admin/inputs/FermentationInput';
 import { Create, NumberInput, SimpleForm, TextInput } from 'react-admin';
 
 export const YeastCreate = () => (
@@ -7,7 +8,7 @@ export const YeastCreate = () => (
             <NumberInput source="minimumTemperature" />
             <NumberInput source="maximumTemperature" />
             <NumberInput source="attenuation" step={0.01} />
-            <NumberInput source="fermentation" />
+            <FermentationInput source="fermentation" />
         </SimpleForm>
     </Create>
 );
