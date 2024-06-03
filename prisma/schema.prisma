@@ -7,29 +7,35 @@ datasource db {
   url      = env("POSTGRES_PRISMA_URL")
 }
 
+enum FermentationType {
+  top
+  bottom
+  any
+}
+
 model BeerStyle {
-  id                     Int    @id(map: "pk_beer_styles") @default(autoincrement())
+  id                     Int              @id(map: "pk_beer_styles") @default(autoincrement())
   name                   String
-  appearanceDescription  String @map("appearance_description")
-  aromaDescription       String @map("aroma_description")
-  flavorDescription      String @map("flavor_description")
-  mouthfeelDescription   String @map("mouthfeel_description")
+  appearanceDescription  String           @map("appearance_description")
+  aromaDescription       String           @map("aroma_description")
+  flavorDescription      String           @map("flavor_description")
+  mouthfeelDescription   String           @map("mouthfeel_description")
   comments               String
   history                String
-  ibuMinimum             Int    @map("ibu_minimum")
-  ibuMaximum             Int    @map("ibu_maximum")
-  srmMinimum             Int    @map("srm_minimum")
-  srmMaximum             Int    @map("srm_maximum")
-  originalGravityMinimum Float  @map("original_gravity_minimum") @db.Real
-  originalGravityMaximum Float  @map("original_gravity_maximum") @db.Real
-  finalGravityMinimum    Float  @map("final_gravity_minimum") @db.Real
-  finalGravityMaximum    Float  @map("final_gravity_maximum") @db.Real
-  abvMinimum             Float  @map("abv_minimum") @db.Real
-  abvMaximum             Float  @map("abv_maximum") @db.Real
-  fermentation           Int
-  bjcpCode               String @default("") @map("bjcp_code")
-  overallImpression      String @default("") @map("overall_impression")
-  imageUrl               String @default("") @map("image_url")
+  ibuMinimum             Int              @map("ibu_minimum")
+  ibuMaximum             Int              @map("ibu_maximum")
+  srmMinimum             Int              @map("srm_minimum")
+  srmMaximum             Int              @map("srm_maximum")
+  originalGravityMinimum Float            @map("original_gravity_minimum") @db.Real
+  originalGravityMaximum Float            @map("original_gravity_maximum") @db.Real
+  finalGravityMinimum    Float            @map("final_gravity_minimum") @db.Real
+  finalGravityMaximum    Float            @map("final_gravity_maximum") @db.Real
+  abvMinimum             Float            @map("abv_minimum") @db.Real
+  abvMaximum             Float            @map("abv_maximum") @db.Real
+  fermentation           FermentationType
+  bjcpCode               String           @default("") @map("bjcp_code")
+  overallImpression      String           @default("") @map("overall_impression")
+  imageUrl               String           @default("") @map("image_url")
 
   @@map("beer_styles")
 }
@@ -137,12 +143,12 @@ model WaterProfile {
 }
 
 model Yeast {
-  id                 Int    @id(map: "pk_yeasts") @default(autoincrement())
+  id                 Int              @id(map: "pk_yeasts") @default(autoincrement())
   name               String
-  fermentation       Int    @default(0)
-  maximumTemperature Int    @default(0) @map("maximum_temperature")
-  minimumTemperature Int    @default(0) @map("minimum_temperature")
-  attenuation        Float  @default(0) @db.Real
+  fermentation       FermentationType
+  maximumTemperature Int              @default(0) @map("maximum_temperature")
+  minimumTemperature Int              @default(0) @map("minimum_temperature")
+  attenuation        Float            @default(0) @db.Real
 
   @@map("yeasts")
 }
