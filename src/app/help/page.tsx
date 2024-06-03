@@ -1,10 +1,10 @@
 import { Typography } from "@mui/material";
 import { NextPage } from "next";
 
-const Home: NextPage = () => (
+const Help: NextPage = () => (
   <>
-    <Typography>Home</Typography>
+    <Typography>Help</Typography>
   </>
 );
 
-export default Home;
+export default Help;
