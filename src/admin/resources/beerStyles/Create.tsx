@@ -24,6 +24,7 @@ export const BeerStyleCreate = () => (
             <NumberInput source="finalGravityMaximum" />
             <NumberInput source="abvMinimum" />
             <NumberInput source="abvMaximum" />
+            <NumberInput source="fermentation_bak" />
             <FermentationInput source="fermentation" />
         </SimpleForm>
     </Create>
