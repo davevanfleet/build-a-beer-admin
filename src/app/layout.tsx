@@ -12,8 +12,10 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { useState } from "react";
 import Image from "next/image";
-import { ThemeProvider, createTheme } from "@mui/material";
+import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 import Link from "next/link";
+import { Toaster } from "react-hot-toast";
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -46,14 +48,32 @@ export default function RootLayout({
   const theme = createTheme({
     palette: {
       primary: {main: "#22222F"},
-      secondary: {main: "#878787"}
+      secondary: {main: "#878787"},
+      background: {
+        default: "#FAFBFB"
+      }
     }
   });
+
+  const darkTheme = createTheme({
+    palette: {
+      primary: {main: "#22222F"},
+      secondary: {main: "#878787"},
+      background: {
+        default: "#14181B"
+      },
+      mode: 'dark'
+    }
+  });
+
+  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
 
   return (
     <html lang="en">
       <body className={inter.className}>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={prefersDarkMode ? darkTheme : theme}>
+        <CssBaseline />
+        <Toaster />
         <AppBar position="static" style={{ background: 'transparent', boxShadow: 'none'}}>
           <Container maxWidth="xl">
             <Toolbar disableGutters>

@@ -1,8 +1,7 @@
-'use-client'
-
-import { List, Typography, Link } from "@mui/material";
-import { Metadata, NextPage } from "next";
+import { List, Typography } from "@mui/material";
+import { Metadata} from "next";
 import { HelpListItem } from "./components/HelpListItem";
+import ContactForm from "./components/ContactForm";
 
 export const metadata: Metadata = {
   title: 'Build-a-Beer Help',
@@ -29,18 +28,22 @@ const IOS_HELP_TOPICS: HelpTopic[] = [
   }
 ] 
 
-const Help: NextPage = () => (
-  <>
-    <Typography variant="h3" gutterBottom>Help</Typography>
-    <Typography variant="h6">iOS app help</Typography>
-    <List>
-      {IOS_HELP_TOPICS.map(helpTopic => (
-        <HelpListItem key={helpTopic.label} label={helpTopic.label} content={helpTopic.content} />
-      ))}
-    </List>
-    <Typography variant="h6">Other Questions</Typography>
-    <Typography>If you don&apos;t see your question listed above, please <Link href="mailto:help@buildabeer.app">Contact Us</Link> and we&apos;ll do what we can to help!</Typography>
-  </>
-);
+const Help = () => {
+  return (
+    <>
+        <Typography variant="h3" gutterBottom>Help</Typography>
+        <Typography variant="h6">iOS app help</Typography>
+        <List>
+        {IOS_HELP_TOPICS.map(helpTopic => (
+            <HelpListItem key={helpTopic.label} label={helpTopic.label} content={helpTopic.content} />
+        ))}
+        </List>
+
+        <Typography variant="h6">Other Questions</Typography>
+        <Typography>If you don&apos;t see your question listed above, please Contact Us and we&apos;ll do what we can to help!</Typography>
+        <ContactForm />
+    </>
+    )
+};
 
 export default Help;
