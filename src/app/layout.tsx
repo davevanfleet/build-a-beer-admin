@@ -57,7 +57,7 @@ export default function RootLayout({
         <AppBar position="static" style={{ background: 'transparent', boxShadow: 'none'}}>
           <Container maxWidth="xl">
             <Toolbar disableGutters>
-              <Link href="/" alt="Home"><Image src="/build-a-beer-icon.png" alt="build a beer logo" width={50} height={50} /></Link>
+              <Link href="/"><Image src="/build-a-beer-icon.png" alt="build a beer logo" width={50} height={50} /></Link>
 
               {/* <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                 <IconButton
