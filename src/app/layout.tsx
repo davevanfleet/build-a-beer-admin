@@ -1,6 +1,4 @@
 'use client'
-
-import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import AppBar from '@mui/material/AppBar';
@@ -43,7 +41,7 @@ export default function RootLayout({
     setAnchorElUser(null);
   };
 
-  const settings = [{label: 'Help', path: '/help'}];
+  const settings = [{label: 'Help', path: '/help'}, {label: 'Privacy', path: '/privacy'}];
 
   const theme = createTheme({
     palette: {
@@ -59,7 +57,7 @@ export default function RootLayout({
         <AppBar position="static" style={{ background: 'transparent', boxShadow: 'none'}}>
           <Container maxWidth="xl">
             <Toolbar disableGutters>
-              <Image src="/build-a-beer-icon.png" alt="build a beer logo" width={50} height={50} />
+              <Link href="/" alt="Home"><Image src="/build-a-beer-icon.png" alt="build a beer logo" width={50} height={50} /></Link>
 
               {/* <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                 <IconButton
