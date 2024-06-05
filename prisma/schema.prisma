@@ -35,7 +35,7 @@ model BeerStyle {
   fermentation           FermentationType
   bjcpCode               String           @default("") @map("bjcp_code")
   overallImpression      String           @default("") @map("overall_impression")
-  imageUrl               String           @default("") @map("image_url")
+  imageUrl               String           @map("image_url")
 
   @@map("beer_styles")
 }
@@ -46,7 +46,6 @@ model Grain {
   lovibond                    Float         @db.Real
   fineGrindDryBasisPercentage Float         @map("fine_grind_dry_basis_percentage") @db.Real
   suggestedMaximumUsage       Int           @default(0) @map("suggested_maximum_usage")
-  suggestedMinimumUsage       Int           @default(0) @map("suggested_minimum_usage")
   maltster                    String        @default("")
   recipeGrains                RecipeGrain[]
 
