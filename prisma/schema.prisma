@@ -37,6 +37,8 @@ model BeerStyle {
   bjcpCode               String           @default("") @map("bjcp_code")
   overallImpression      String           @default("") @map("overall_impression")
   imageUrl               String           @map("image_url")
+  sampleRecipeId         Int?             @map("sample_recipe_id")
+  sampleRecipe           Recipe?          @relation(fields: [sampleRecipeId], references: [id], onDelete: SetNull, onUpdate: NoAction, map: "fk_beer_styles_recipes_recipe_id")
 
   @@map("beer_styles")
 }
@@ -101,6 +103,7 @@ model Recipe {
   description  String
   recipeGrains RecipeGrain[]
   recipeHops   RecipeHop[]
+  BeerStyle    BeerStyle[]
 
   @@map("recipes")
 }

@@ -21,7 +21,7 @@ export async function GET(request: NextRequest) {
     const sortByParam = request.nextUrl.searchParams.get("sort")
     const [sortBy, sortOrder] = sortByParam ? JSON.parse(sortByParam) : ["id", "ASC"]
 
-    const beerStyles = await prisma.beerStyle.findMany({orderBy: [{[sortBy]: sortOrder.toLowerCase()}]});
+    const beerStyles = await prisma.beerStyle.findMany({ orderBy: [{[sortBy]: sortOrder.toLowerCase()}], include: { sampleRecipe: true },});
     const response = NextResponse.json(beerStyles);
 
     const count = await prisma.beerStyle.count()
