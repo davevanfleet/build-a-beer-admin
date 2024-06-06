@@ -98,12 +98,15 @@ model RecipeHop {
 }
 
 model Recipe {
-  id           Int           @id(map: "pk_recipes") @default(autoincrement())
-  name         String
-  description  String
-  recipeGrains RecipeGrain[]
-  recipeHops   RecipeHop[]
-  BeerStyle    BeerStyle[]
+  id              Int           @id(map: "pk_recipes") @default(autoincrement())
+  name            String
+  description     String
+  postBoilGallons Int
+  recipeGrains    RecipeGrain[]
+  recipeHops      RecipeHop[]
+  yeastId         Int           @map("yeast_id")
+  yeast           Yeast         @relation(fields: [yeastId], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_recipes_yeasts_yeast_id")
+  BeerStyle       BeerStyle[]
 
   @@map("recipes")
 }
@@ -144,6 +147,7 @@ model Yeast {
   maximumTemperature Int              @default(0) @map("maximum_temperature")
   minimumTemperature Int              @default(0) @map("minimum_temperature")
   attenuation        Float            @default(0) @db.Real
+  Recipe             Recipe[]
 
   @@map("yeasts")
 }

@@ -1,21 +1,21 @@
-'use client'
+"use client";
 import { Inter } from "next/font/google";
 import "../globals.css";
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Menu from '@mui/material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import Menu from "@mui/material/Menu";
+import Container from "@mui/material/Container";
+import Avatar from "@mui/material/Avatar";
+import Tooltip from "@mui/material/Tooltip";
+import MenuItem from "@mui/material/MenuItem";
 import { useState } from "react";
 import Image from "next/image";
 import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 import Link from "next/link";
 import { Toaster } from "react-hot-toast";
-import useMediaQuery from '@mui/material/useMediaQuery';
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -43,43 +43,56 @@ export default function RootLayout({
     setAnchorElUser(null);
   };
 
-  const settings = [{label: 'Help', path: '/help'}, {label: 'Privacy', path: '/privacy'}];
+  const settings = [
+    { label: "Help", path: "/help" },
+    { label: "Privacy", path: "/privacy" },
+  ];
 
   const theme = createTheme({
     palette: {
-      primary: {main: "#22222F"},
-      secondary: {main: "#878787"},
+      primary: { main: "#22222F" },
+      secondary: { main: "#878787" },
       background: {
-        default: "#FAFBFB"
-      }
-    }
+        default: "#FAFBFB",
+      },
+    },
   });
 
   const darkTheme = createTheme({
     palette: {
-      primary: {main: "#22222F"},
-      secondary: {main: "#878787"},
+      primary: { main: "#22222F" },
+      secondary: { main: "#878787" },
       background: {
-        default: "#14181B"
+        default: "#14181B",
       },
-      mode: 'dark'
-    }
+      mode: "dark",
+    },
   });
 
-  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+  const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
 
   return (
     <html lang="en">
       <body className={inter.className}>
-      <ThemeProvider theme={prefersDarkMode ? darkTheme : theme}>
-        <CssBaseline />
-        <Toaster />
-        <AppBar position="static" style={{ background: 'transparent', boxShadow: 'none'}}>
-          <Container maxWidth="xl">
-            <Toolbar disableGutters>
-              <Link href="/"><Image src="/build-a-beer-icon.png" alt="build a beer logo" width={50} height={50} /></Link>
+        <ThemeProvider theme={prefersDarkMode ? darkTheme : theme}>
+          <CssBaseline />
+          <Toaster />
+          <AppBar
+            position="static"
+            style={{ background: "transparent", boxShadow: "none" }}
+          >
+            <Container maxWidth="xl">
+              <Toolbar disableGutters>
+                <Link href="/">
+                  <Image
+                    src="/build-a-beer-icon.png"
+                    alt="build a beer logo"
+                    width={50}
+                    height={50}
+                  />
+                </Link>
 
-              {/* <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+                {/* <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                 <IconButton
                   size="large"
                   aria-label="account of current user"
@@ -128,44 +141,45 @@ export default function RootLayout({
                 ))}
               </Box> */}
 
-              <Box sx={{ flexGrow: 1 }} />
+                <Box sx={{ flexGrow: 1 }} />
 
-              <Box sx={{ flexGrow: 0 }}>
-                <Tooltip title="Open settings">
-                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <Avatar />
-                  </IconButton>
-                </Tooltip>
-                <Menu
-                  sx={{ mt: '45px' }}
-                  id="menu-appbar"
-                  anchorEl={anchorElUser}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  open={Boolean(anchorElUser)}
-                  onClose={handleCloseUserMenu}
-                >
-                  {settings.map((setting) => (
-                    <MenuItem key={setting.label} onClick={handleCloseUserMenu}>
-                      <Link href={setting.path}>{setting.label}</Link>
-                    </MenuItem>
-                  ))}
-                </Menu>
-              </Box>
-            </Toolbar>
-          </Container>
-        </AppBar>
-        <Container>
-          {children}
-        </Container>
-      </ThemeProvider>
+                <Box sx={{ flexGrow: 0 }}>
+                  <Tooltip title="Open settings">
+                    <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                      <Avatar />
+                    </IconButton>
+                  </Tooltip>
+                  <Menu
+                    sx={{ mt: "45px" }}
+                    id="menu-appbar"
+                    anchorEl={anchorElUser}
+                    anchorOrigin={{
+                      vertical: "top",
+                      horizontal: "right",
+                    }}
+                    keepMounted
+                    transformOrigin={{
+                      vertical: "top",
+                      horizontal: "right",
+                    }}
+                    open={Boolean(anchorElUser)}
+                    onClose={handleCloseUserMenu}
+                  >
+                    {settings.map((setting) => (
+                      <MenuItem
+                        key={setting.label}
+                        onClick={handleCloseUserMenu}
+                      >
+                        <Link href={setting.path}>{setting.label}</Link>
+                      </MenuItem>
+                    ))}
+                  </Menu>
+                </Box>
+              </Toolbar>
+            </Container>
+          </AppBar>
+          <Container>{children}</Container>
+        </ThemeProvider>
       </body>
     </html>
   );

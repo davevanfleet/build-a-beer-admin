@@ -14,11 +14,11 @@ export async function PUT(
 
   const payload = await request.json();
 
-  const beerStyle = await prisma.beerStyle.update({
+  const recipe = await prisma.recipe.update({
     data: payload,
     where: { id: params.id },
   });
-  const response = NextResponse.json(beerStyle);
+  const response = NextResponse.json(recipe);
 
   return response;
 }
@@ -27,10 +27,10 @@ export async function GET(
   _request: NextRequest,
   { params }: { params: { id: number } },
 ) {
-  const beerStyle = await prisma.beerStyle.findFirstOrThrow({
+  const recipe = await prisma.recipe.findFirstOrThrow({
     where: { id: +params.id },
   });
-  const response = NextResponse.json(beerStyle);
+  const response = NextResponse.json(recipe);
 
   return response;
 }

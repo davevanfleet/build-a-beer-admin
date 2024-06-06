@@ -1,12 +1,14 @@
 import { Metadata, NextPage } from "next";
 
 export const metadata: Metadata = {
-  title: 'Build-a-Beer Privacy Policy',
-  description: 'Privacy policy for the Build-a-Beer platform',
+  title: "Build-a-Beer Privacy Policy",
+  description: "Privacy policy for the Build-a-Beer platform",
 };
 
 const Privacy: NextPage = () => (
-    <div dangerouslySetInnerHTML={{ __html: `<style>
+  <div
+    dangerouslySetInnerHTML={{
+      __html: `<style>
     [data-custom-class='body'], [data-custom-class='body'] * {
             background: transparent !important;
           }
@@ -60,7 +62,9 @@ const Privacy: NextPage = () => (
         }
       </style>
         </div>
-        `}} />
+        `,
+    }}
+  />
 );
 
 export default Privacy;
