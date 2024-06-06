@@ -23,7 +23,18 @@ export async function GET(request: NextRequest) {
     ? JSON.parse(sortByParam)
     : ["id", "ASC"];
 
+  const filterParam = Boolean(request.nextUrl.searchParams.get("filter"))
+    ? JSON.parse(request.nextUrl.searchParams.get("filter")!)
+    : {};
+  const searchQuery = filterParam?.q;
+
   const hops = await prisma.hop.findMany({
+    where: {
+      name: {
+        contains: searchQuery,
+        mode: "insensitive",
+      },
+    },
     orderBy: { [sortBy]: sortOrder.toLowerCase() },
   });
   const response = NextResponse.json(hops);

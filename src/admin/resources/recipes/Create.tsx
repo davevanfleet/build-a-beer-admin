@@ -20,7 +20,11 @@ export const RecipeCreate = () => (
       <NumberInput source="postBoilGallons" />
       <ArrayInput source="recipeGrains" fullWidth>
         <SimpleFormIterator inline>
-          <ReferenceInput source="grainId" reference="Grains">
+          <ReferenceInput
+            source="grainId"
+            reference="Grains"
+            sort={{ field: "name", order: "ASC" }}
+          >
             <AutocompleteInput
               label="Grain"
               optionText={(grain) => `${grain.name} (${grain.maltster})`}
@@ -32,7 +36,11 @@ export const RecipeCreate = () => (
       </ArrayInput>
       <ArrayInput source="recipeHops" fullWidth>
         <SimpleFormIterator inline>
-          <ReferenceInput source="hopId" reference="Hops">
+          <ReferenceInput
+            source="hopId"
+            reference="Hops"
+            sort={{ field: "name", order: "ASC" }}
+          >
             <AutocompleteInput
               label="Hop"
               optionText={(hop) => hop.name}
