@@ -25,7 +25,15 @@ export async function GET(request: NextRequest) {
 
   const beerStyles = await prisma.beerStyle.findMany({
     orderBy: [{ [sortBy]: sortOrder.toLowerCase() }],
-    include: { sampleRecipe: true },
+    include: {
+      sampleRecipe: {
+        include: {
+          recipeGrains: { include: { grain: true } },
+          recipeHops: { include: { hop: true } },
+          yeast: true,
+        },
+      },
+    },
   });
   const response = NextResponse.json(beerStyles);
 
