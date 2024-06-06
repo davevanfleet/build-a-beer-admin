@@ -8,6 +8,8 @@ import {
   NumberInput,
   ArrayInput,
   SimpleFormIterator,
+  ReferenceInput,
+  AutocompleteInput,
 } from "react-admin";
 
 export const RecipeCreate = () => (
@@ -15,25 +17,33 @@ export const RecipeCreate = () => (
     <SimpleForm>
       <TextInput source="name" fullWidth />
       <TextInput source="description" multiline fullWidth />
-
       <NumberInput source="postBoilGallons" />
-
       <ArrayInput source="recipeGrains" fullWidth>
         <SimpleFormIterator inline>
-          <GrainInput />
+          <ReferenceInput source="grainId" reference="Grains">
+            <AutocompleteInput
+              label="Grain"
+              optionText={(grain) => `${grain.name} (${grain.maltster})`}
+              fullWidth
+            />
+          </ReferenceInput>
           <NumberInput source="weightInPounds" />
         </SimpleFormIterator>
       </ArrayInput>
-
       <ArrayInput source="recipeHops" fullWidth>
         <SimpleFormIterator inline>
-          <HopInput />
-          <NumberInput source="weightInPounds" />
+          <ReferenceInput source="hopId" reference="Hops">
+            <AutocompleteInput
+              label="Hop"
+              optionText={(hop) => hop.name}
+              fullWidth
+            />
+          </ReferenceInput>
+          <NumberInput source="weightInOunces" />
           <NumberInput source="boilTimeMinutes" />
           <NumberInput source="alphaAcidPercent" />
         </SimpleFormIterator>
       </ArrayInput>
-
       <YeastInput />
     </SimpleForm>
   </Create>

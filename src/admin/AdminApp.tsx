@@ -19,6 +19,7 @@ import { YeastCreate } from "./resources/yeasts/Create";
 import { YeastList } from "./resources/yeasts/List";
 import { RecipeList } from "./resources/recipes/List";
 import { RecipeCreate } from "./resources/recipes/Create";
+import { RecipeShow } from "./resources/recipes/Show";
 
 const AdminApp = () => (
   <>
@@ -59,7 +60,7 @@ const AdminApp = () => (
         name="Recipes"
         list={RecipeList}
         edit={EditGuesser}
-        show={ShowGuesser}
+        show={RecipeShow}
         create={RecipeCreate}
       />
     </Admin>

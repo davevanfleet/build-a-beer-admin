@@ -29,6 +29,11 @@ export async function GET(
 ) {
   const recipe = await prisma.recipe.findFirstOrThrow({
     where: { id: +params.id },
+    include: {
+      recipeGrains: { include: { grain: true } },
+      recipeHops: { include: { hop: true } },
+      yeast: true,
+    },
   });
   const response = NextResponse.json(recipe);
 
