@@ -70,7 +70,7 @@ model Hop {
 }
 
 model RecipeGrain {
-  id             Int    @id(map: "pk_recipe_grains") @default(autoincrement())
+  id             String @id(map: "pk_recipe_grains") @default(uuid())
   recipeId       Int    @map("recipe_id")
   grainId        Int    @map("grain_id")
   weightInPounds Float  @default(0) @map("weight_in_pounds") @db.Real
@@ -83,7 +83,7 @@ model RecipeGrain {
 }
 
 model RecipeHop {
-  id               Int    @id(map: "pk_recipe_hops") @default(autoincrement())
+  id               String @id(map: "pk_recipe_hops") @default(uuid())
   recipeId         Int    @map("recipe_id")
   hopId            Int    @map("hop_id")
   alphaAcidPercent Float  @default(0) @map("alpha_acid_percent") @db.Real
