@@ -73,7 +73,7 @@ model RecipeGrain {
   id             String @id(map: "pk_recipe_grains") @default(uuid())
   recipeId       Int    @map("recipe_id")
   grainId        Int    @map("grain_id")
-  weightInPounds Float  @default(0) @map("weight_in_pounds") @db.Real
+  weightInPounds Float  @map("weight_in_pounds") @db.Real
   grain          Grain  @relation(fields: [grainId], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_recipe_grains_grains_grain_id")
   recipe         Recipe @relation(fields: [recipeId], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_recipe_grains_recipes_recipe_id")
 
@@ -86,9 +86,9 @@ model RecipeHop {
   id               String @id(map: "pk_recipe_hops") @default(uuid())
   recipeId         Int    @map("recipe_id")
   hopId            Int    @map("hop_id")
-  alphaAcidPercent Float  @default(0) @map("alpha_acid_percent") @db.Real
-  boilTimeMinutes  Int    @default(0) @map("boil_time_minutes")
-  weightInOunces   Float  @default(0) @map("weight_in_ounces") @db.Real
+  alphaAcidPercent Float  @map("alpha_acid_percent") @db.Real
+  boilTimeMinutes  Int    @map("boil_time_minutes")
+  weightInOunces   Float  @map("weight_in_ounces") @db.Real
   hop              Hop    @relation(fields: [hopId], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_recipe_hops_hops_hop_id")
   recipe           Recipe @relation(fields: [recipeId], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_recipe_hops_recipes_recipe_id")
 

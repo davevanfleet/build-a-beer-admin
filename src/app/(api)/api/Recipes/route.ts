@@ -12,6 +12,7 @@ type CreatePayload = {
     hopId: number;
     weightInOunces: number;
     alphaAcidPercent: number;
+    boilTimeMinutes: number;
   }[];
   yeastId: number;
 };
@@ -31,10 +32,11 @@ const transformCreatePayload = (
     },
     recipeHops: {
       create: payload.recipeHops.map(
-        ({ hopId, weightInOunces, alphaAcidPercent }) => ({
+        ({ hopId, weightInOunces, alphaAcidPercent, boilTimeMinutes }) => ({
           hop: { connect: { id: hopId } },
           weightInOunces,
           alphaAcidPercent,
+          boilTimeMinutes,
         }),
       ),
     },
