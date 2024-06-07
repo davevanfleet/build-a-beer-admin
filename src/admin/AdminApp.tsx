@@ -20,6 +20,8 @@ import { YeastList } from "./resources/yeasts/List";
 import { RecipeList } from "./resources/recipes/List";
 import { RecipeCreate } from "./resources/recipes/Create";
 import { RecipeShow } from "./resources/recipes/Show";
+import { MaltExtractList } from "./resources/maltExtracts/List";
+import { MaltExtractCreate } from "./resources/maltExtracts/Create";
 
 const AdminApp = () => (
   <>
@@ -41,6 +43,13 @@ const AdminApp = () => (
         edit={EditGuesser}
         show={ShowGuesser}
         create={GrainCreate}
+      />
+      <Resource
+        name="MaltExtracts"
+        list={MaltExtractList}
+        edit={EditGuesser}
+        show={ShowGuesser}
+        create={MaltExtractCreate}
       />
       <Resource
         name="Hops"

@@ -14,6 +14,13 @@ enum FermentationType {
   any
 }
 
+enum CategorizationType {
+  geography
+  flavor
+  aroma
+  ingredient_grouping
+}
+
 model BeerStyle {
   id                     Int              @id(map: "pk_beer_styles") @default(autoincrement())
   name                   String
@@ -44,29 +51,69 @@ model BeerStyle {
 }
 
 model Grain {
-  id                          Int           @id(map: "pk_grains") @default(autoincrement())
+  id                          Int             @id(map: "pk_grains") @default(autoincrement())
   name                        String
-  lovibond                    Float         @db.Real
-  fineGrindDryBasisPercentage Float         @map("fine_grind_dry_basis_percentage") @db.Real
-  suggestedMaximumUsage       Int           @default(0) @map("suggested_maximum_usage")
-  maltster                    String        @default("")
+  lovibond                    Float           @db.Real
+  fineGrindDryBasisPercentage Float           @map("fine_grind_dry_basis_percentage") @db.Real
+  suggestedMaximumUsage       Int             @default(0) @map("suggested_maximum_usage")
+  maltster                    String          @default("")
   recipeGrains                RecipeGrain[]
+  grainCategories             GrainCategory[]
 
   @@map("grains")
 }
 
+model GrainCategory {
+  id                 String             @id(map: "pk_grain_categories") @default(uuid())
+  categorizationType CategorizationType @map("categorization_type")
+  grains             Grain[]
+
+  @@map("grain_categories")
+}
+
 model Hop {
-  id                      Int         @id(map: "pk_hops") @default(autoincrement())
+  id                      Int           @id(map: "pk_hops") @default(autoincrement())
   name                    String
-  forAroma                Boolean     @default(false) @map("for_aroma")
-  forBittering            Boolean     @default(false) @map("for_bittering")
-  forDryHopping           Boolean     @default(false) @map("for_dry_hopping")
-  forFlavor               Boolean     @default(false) @map("for_flavor")
-  minimumTypicalAlphaAcid Float       @map("minimum_typical_alpha_acid")
-  maximumTypicalAlphaAcid Float       @map("maximum_typical_alpha_acid")
+  forAroma                Boolean       @default(false) @map("for_aroma")
+  forBittering            Boolean       @default(false) @map("for_bittering")
+  forDryHopping           Boolean       @default(false) @map("for_dry_hopping")
+  forFlavor               Boolean       @default(false) @map("for_flavor")
+  minimumTypicalAlphaAcid Float         @map("minimum_typical_alpha_acid")
+  maximumTypicalAlphaAcid Float         @map("maximum_typical_alpha_acid")
   recipeHops              RecipeHop[]
+  hopCategories           HopCategory[]
 
   @@map("hops")
+}
+
+model HopCategory {
+  id                 String             @id(map: "pk_hop_categories") @default(uuid())
+  categorizationType CategorizationType @map("categorization_type")
+  hops               Hop[]
+
+  @@map("hop_categories")
+}
+
+model MaltExtract {
+  id                       String              @id(map: "pk_malt_extracts") @default(uuid())
+  name                     String
+  lovibond                 Float               @db.Real
+  fermentabilityPercentage Float               @map("fermentability_percentage") @db.Real
+  suggestedMaximumUsage    Int                 @default(100) @map("suggested_maximum_usage")
+  maltster                 String              @default("")
+  recipeMaltExtracts       RecipeMaltExtract[]
+
+  @@map("malt_extracts")
+}
+
+model OtherFermentable {
+  id                       String                   @id(map: "pk_other_fermentables") @default(uuid())
+  name                     String
+  lovibond                 Float                    @db.Real
+  fermentabilityPercentage Float                    @map("fermentability_percentage") @db.Real
+  recipeOtherFermentables  RecipeOtherFermentable[]
+
+  @@map("other_fermentables")
 }
 
 model RecipeGrain {
@@ -97,16 +144,44 @@ model RecipeHop {
   @@map("recipe_hops")
 }
 
+model RecipeMaltExtract {
+  id             String      @id(map: "pk_recipe_malt_extracts") @default(uuid())
+  recipeId       Int         @map("recipe_id")
+  maltExtractId  String      @map("malt_extract_id")
+  weightInPounds Float       @map("weight_in_pounds") @db.Real
+  maltExtract    MaltExtract @relation(fields: [maltExtractId], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_recipe_grains_grains_grain_id")
+  recipe         Recipe      @relation(fields: [recipeId], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_recipe_grains_recipes_recipe_id")
+
+  @@index([maltExtractId], map: "ix_recipe_malt_extracts_malt_extract_id")
+  @@index([recipeId], map: "ix_recipe_malt_extracts_recipe_id")
+  @@map("recipe_malt_extracts")
+}
+
+model RecipeOtherFermentable {
+  id                 String           @id(map: "pk_recipe_other_fermentables") @default(uuid())
+  recipeId           Int              @map("recipe_id")
+  otherFermentableId String           @map("other_fermentable_id")
+  weightInPounds     Float            @map("weight_in_pounds") @db.Real
+  otherFermentable   OtherFermentable @relation(fields: [otherFermentableId], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_recipe_grains_grains_grain_id")
+  recipe             Recipe           @relation(fields: [recipeId], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_recipe_grains_recipes_recipe_id")
+
+  @@index([otherFermentableId], map: "ix_recipe_other_fermentables_other_fermentable_id")
+  @@index([recipeId], map: "ix_recipe_other_fermentables_recipe_id")
+  @@map("recipe_other_fermentables")
+}
+
 model Recipe {
-  id              Int           @id(map: "pk_recipes") @default(autoincrement())
-  name            String
-  description     String
-  postBoilGallons Int
-  recipeGrains    RecipeGrain[]
-  recipeHops      RecipeHop[]
-  yeastId         Int           @map("yeast_id")
-  yeast           Yeast         @relation(fields: [yeastId], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_recipes_yeasts_yeast_id")
-  BeerStyle       BeerStyle[]
+  id                      Int                      @id(map: "pk_recipes") @default(autoincrement())
+  name                    String
+  description             String
+  postBoilGallons         Int
+  recipeGrains            RecipeGrain[]
+  recipeHops              RecipeHop[]
+  recipeMaltExtracts      RecipeMaltExtract[]
+  recipeOtherFermentables RecipeOtherFermentable[]
+  yeastId                 Int                      @map("yeast_id")
+  yeast                   Yeast                    @relation(fields: [yeastId], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_recipes_yeasts_yeast_id")
+  BeerStyle               BeerStyle[]
 
   @@map("recipes")
 }
@@ -148,6 +223,15 @@ model Yeast {
   minimumTemperature Int              @default(0) @map("minimum_temperature")
   attenuation        Float            @default(0) @db.Real
   Recipe             Recipe[]
+  yeastCategories    YeastCategory[]
 
   @@map("yeasts")
+}
+
+model YeastCategory {
+  id                 String             @id(map: "pk_yeast_categories") @default(uuid())
+  categorizationType CategorizationType @map("categorization_type")
+  yeasts             Yeast[]
+
+  @@map("yeast_categories")
 }
