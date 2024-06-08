@@ -45,7 +45,9 @@ model BeerStyle {
   overallImpression      String           @default("") @map("overall_impression")
   imageUrl               String           @map("image_url")
   sampleRecipeId         Int?             @map("sample_recipe_id")
-  sampleRecipe           Recipe?          @relation(fields: [sampleRecipeId], references: [id], onDelete: SetNull, onUpdate: NoAction, map: "fk_beer_styles_recipes_recipe_id")
+  sampleRecipe           Recipe?          @relation(name: "allGrainSample", fields: [sampleRecipeId], references: [id], onDelete: SetNull, onUpdate: NoAction, map: "fk_beer_styles_recipes_recipe_id")
+  sampleExtractRecipeId  Int?             @map("sample_extract_recipe_id")
+  sampleExtractRecipe    Recipe?          @relation(name: "extractSample", fields: [sampleExtractRecipeId], references: [id], onDelete: SetNull, onUpdate: NoAction, map: "fk_beer_styles_recipes_extract_recipe_id")
 
   @@map("beer_styles")
 }
@@ -171,17 +173,18 @@ model RecipeOtherFermentable {
 }
 
 model Recipe {
-  id                      Int                      @id(map: "pk_recipes") @default(autoincrement())
-  name                    String
-  description             String
-  postBoilGallons         Int
-  recipeGrains            RecipeGrain[]
-  recipeHops              RecipeHop[]
-  recipeMaltExtracts      RecipeMaltExtract[]
-  recipeOtherFermentables RecipeOtherFermentable[]
-  yeastId                 Int                      @map("yeast_id")
-  yeast                   Yeast                    @relation(fields: [yeastId], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_recipes_yeasts_yeast_id")
-  BeerStyle               BeerStyle[]
+  id                          Int                      @id(map: "pk_recipes") @default(autoincrement())
+  name                        String
+  description                 String
+  postBoilGallons             Int
+  recipeGrains                RecipeGrain[]
+  recipeHops                  RecipeHop[]
+  recipeMaltExtracts          RecipeMaltExtract[]
+  recipeOtherFermentables     RecipeOtherFermentable[]
+  yeastId                     Int                      @map("yeast_id")
+  yeast                       Yeast                    @relation(fields: [yeastId], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_recipes_yeasts_yeast_id")
+  allGrainSampleForBeerStyles BeerStyle[]              @relation("allGrainSample")
+  extractSampleForBeerStyles  BeerStyle[]              @relation("extractSample")
 
   @@map("recipes")
 }

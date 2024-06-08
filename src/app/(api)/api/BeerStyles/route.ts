@@ -28,6 +28,7 @@ export async function GET(request: NextRequest) {
     include: {
       sampleRecipe: {
         include: {
+          recipeMaltExtracts: { include: { maltExtract: true } },
           recipeGrains: { include: { grain: true } },
           recipeHops: { include: { hop: true } },
           yeast: true,

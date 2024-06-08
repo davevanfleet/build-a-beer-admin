@@ -18,6 +18,22 @@ export const RecipeCreate = () => (
       <TextInput source="name" fullWidth />
       <TextInput source="description" multiline fullWidth />
       <NumberInput source="postBoilGallons" />
+      <ArrayInput source="recipeMaltExtracts" fullWidth>
+        <SimpleFormIterator inline>
+          <ReferenceInput
+            source="maltExtractId"
+            reference="MaltExtracts"
+            sort={{ field: "name", order: "ASC" }}
+          >
+            <AutocompleteInput
+              label="Malt Extract"
+              optionText={(grain) => `${grain.name} (${grain.maltster})`}
+              fullWidth
+            />
+          </ReferenceInput>
+          <NumberInput source="weightInPounds" />
+        </SimpleFormIterator>
+      </ArrayInput>
       <ArrayInput source="recipeGrains" fullWidth>
         <SimpleFormIterator inline>
           <ReferenceInput
