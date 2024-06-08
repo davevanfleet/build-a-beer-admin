@@ -23,16 +23,21 @@ export async function GET(request: NextRequest) {
     ? JSON.parse(sortByParam)
     : ["id", "ASC"];
 
+  const recipeIncludeObj = {
+    recipeMaltExtracts: { include: { maltExtract: true } },
+    recipeGrains: { include: { grain: true } },
+    recipeHops: { include: { hop: true } },
+    yeast: true,
+  };
+
   const beerStyles = await prisma.beerStyle.findMany({
     orderBy: [{ [sortBy]: sortOrder.toLowerCase() }],
     include: {
       sampleRecipe: {
-        include: {
-          recipeMaltExtracts: { include: { maltExtract: true } },
-          recipeGrains: { include: { grain: true } },
-          recipeHops: { include: { hop: true } },
-          yeast: true,
-        },
+        include: recipeIncludeObj,
+      },
+      sampleExtractRecipe: {
+        include: recipeIncludeObj,
       },
     },
   });
