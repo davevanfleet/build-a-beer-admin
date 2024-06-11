@@ -7,6 +7,7 @@ type CreatePayload = {
   name: string;
   description: string;
   postBoilGallons: number;
+  recipeMaltExtracts: { maltExtractId: string; weightInPounds: number }[];
   recipeGrains: { grainId: number; weightInPounds: number }[];
   recipeHops: {
     hopId: number;
@@ -24,6 +25,14 @@ const transformCreatePayload = (
     name: payload.name,
     description: payload.description,
     postBoilGallons: payload.postBoilGallons,
+    recipeMaltExtracts: {
+      create: payload.recipeMaltExtracts.map(
+        ({ maltExtractId, weightInPounds }) => ({
+          maltExtract: { connect: { id: maltExtractId } },
+          weightInPounds,
+        }),
+      ),
+    },
     recipeGrains: {
       create: payload.recipeGrains.map(({ grainId, weightInPounds }) => ({
         grain: { connect: { id: grainId } },
